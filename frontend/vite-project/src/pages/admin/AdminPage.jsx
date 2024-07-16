@@ -1,5 +1,5 @@
-import Header from "../components/AdminHeader";
-import AdminDashBoard from "../components/AdminDashboard";
+import Header from "../../components/AdminHeader";
+import AdminDashBoard from "../../components/AdminDashboard";
 import "../App.css";
 
 function AdminPage() {

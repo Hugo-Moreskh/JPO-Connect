@@ -1,29 +1,33 @@
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
-import { useUser } from "@clerk/clerk-react";
-import { useEffect } from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { RootLayout } from "./pages/Root";
+import { HomePage } from "./pages/HomePage";
+import { RootLayoutAdmin } from "./pages/admin/RootAdmin";
+import AdminPage from "./pages/admin/AdminPage";
 
 export default function App() {
-  const { isSignedIn, user } = useUser();
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <RootLayout />,
+      children: [
+        {
+          path: "/",
+          element: <HomePage />,
+        },
+      ],
+    },
+    {
+      path: "/admin",
+      element: <RootLayoutAdmin />,
+      // loader
+      children: [
+        {
+          path: "/",
+          element: <AdminPage />,
+        },
+      ],
+    },
+  ]);
 
-  useEffect(() => {
-    console.log(user);
-  }, [isSignedIn]);
-  // user email = user.primaryEmailAddress.emailAddress
-  //role: Directeur : tous les droits (ajouter des droits, supprimer des droits, modifier les droits, modifier les événements, supprimer les événements, modifier les utilisateurs)
-  //role: Responsable : tous les droits sauf ajouter des droits (ajouter des droits, supprimer des droits, modifier les droits, modifier les événements, supprimer les événements, modifier les utilisateurs)
-  //role: Salarié : modifier les événements
-
-    
-  return (
-    <header>
-      <SignedOut>
-        <SignInButton />
-      </SignedOut>
-      <SignedIn>
-        <UserButton />
-        {isSignedIn && <p>Signed in as: {user.primaryEmailAddress.emailAddress
-        }</p>}
-      </SignedIn>
-    </header>
-  );
+  return <RouterProvider router={router} />;
 }
