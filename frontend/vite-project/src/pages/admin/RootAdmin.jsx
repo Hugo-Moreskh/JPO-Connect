@@ -1,3 +1,16 @@
+import Header from "../../components/layout-admin/AdminHeader";
+import AdminDashBoard from "../../components/layout-admin/AdminDashboard";
+import "../../App.css";
+import { Outlet } from "react-router-dom";
+
 export const RootLayoutAdmin = () => {
-  return <div>Layout</div>;
+  return (
+  <div>
+  <Header />
+  <main>
+    <AdminDashBoard />
+  </main>
+  <Outlet/>
+</div>
+  )
 };

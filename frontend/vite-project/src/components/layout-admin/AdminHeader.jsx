@@ -1,5 +1,5 @@
-import logoLeft from "../assets/Logo-laplateforme.png"; // Chemin vers votre logo gauche
-import logoRight from "../assets/image-laplateforme.png"; // Chemin vers votre logo droit
+import logoLeft from "../../assets/Logo-laplateforme.png"; // Chemin vers votre logo gauche
+import logoRight from "../../assets/image-laplateforme.png"; // Chemin vers votre logo droit
 
 function Header() {
   return (

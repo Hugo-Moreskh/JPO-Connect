@@ -12,7 +12,7 @@ export const Header = () => {
 
   useEffect(() => {
     console.log(user);
-  }, [isSignedIn]);
+  }, [isSignedIn, user]);
   // user email = user.primaryEmailAddress.emailAddress
   //role: Directeur : tous les droits (ajouter des droits, supprimer des droits, modifier les droits, modifier les événements, supprimer les événements, modifier les utilisateurs)
   //role: Responsable : tous les droits sauf ajouter des droits (ajouter des droits, supprimer des droits, modifier les droits, modifier les événements, supprimer les événements, modifier les utilisateurs)

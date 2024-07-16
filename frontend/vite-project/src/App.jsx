@@ -22,7 +22,7 @@ export default function App() {
       // loader
       children: [
         {
-          path: "/",
+          path: "",
           element: <AdminPage />,
         },
       ],
