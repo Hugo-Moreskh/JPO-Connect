@@ -82,3 +82,32 @@
 .read-the-docs {
   color: #888;
 }
+
+.div-home{
+  display: flex;
+  justify-content: space-around;
+  margin-top: 2rem;
+}
+.right-div{
+  display: flex;
+  height: 35rem;
+  margin-bottom: 8rem;
+}
+.left-div{
+  margin-left: 5rem;
+  
+ 
+  
+}
+.body-home{
+  background-color: #0062ff;
+}
+.title-home{
+  margin-top: 2rem;
+  margin-right: 4rem;
+  color: white;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: normal
+ 
+}
