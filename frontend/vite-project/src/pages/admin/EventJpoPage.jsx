@@ -15,7 +15,7 @@ function EventJpo() {
 
   return (
     <div>
-      <h2 className="title-event">Créer un Event Jpo</h2>
+      <h2 className="title-event">Créer un Event Jpo:</h2>
       <button className="add-jpo" onClick={openModal}>Ajouter Event</button>
 
       <ModalEventJpo isOpen={isModalOpen} onClose={closeModal}>
