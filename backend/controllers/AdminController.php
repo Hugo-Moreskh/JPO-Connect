@@ -1,5 +1,6 @@
 <?php
-require_once 'models/Admin.php';
+require_once '../models/Admin.php';
+use Firebase\JWT\JWT;
 
 class AdminController {
     private $database;
@@ -7,12 +8,12 @@ class AdminController {
 
     public function __construct($db) {
         $this->database = $db;
-        $this->admin = new User($db);
+        $this->admin = new Admin($db);
     }
 
     public function getAllUsers() {
         $stmt = $this->admin->read();
-        $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $admins = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $admins;
     }
 
@@ -57,9 +58,33 @@ class AdminController {
             return false;
         }
     }
+    private $secretKey = 'lzeorhiozcnurgyzioutyrzcaoituycazoirtxhzefh';
+
+    public function generateJWT($userId, $role) {
+        $issuedAt = time();
+        $expirationTime = $issuedAt + 3600; // Token will expire in 1 hour
+
+        $payload = [
+            'iat' => $issuedAt,
+            'exp' => $expirationTime,
+            'userId' => $userId,
+            'role' => $role,
+        ];
+
+        $jwt = JWT::encode($payload, $this->secretKey, 'HS256');
+
+        return $jwt;
+    }
 
     public function authenticateAdmin($email, $password) {
         $admin = $this->admin->authenticate($email, $password);
-        return $admin;
+    
+        if ($admin) {
+            $jwt = $this->generateJWT($admin['id'], $admin['role']);
+            return $jwt;
+        }
+    
+        return false;
     }
+    
 }

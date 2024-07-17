@@ -20,13 +20,14 @@ class Admin {
     }
 
     function read() {
-        $query = "SELECT * FROM " . $this->table_name;
-
+        $query = "SELECT id, username, email, role FROM " . $this->table_name;
+    
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
-
+    
         return $stmt;
     }
+    
 
     function getUserByEmail($email) {
         $query = "SELECT * FROM " . $this->table_name . " WHERE email = :email";
@@ -39,29 +40,30 @@ class Admin {
     }
 
     public function create() {
-        $query = "INSERT INTO " . $this->getTableName() . " SET username = :username, email = :email, password = :password, role = :role, created_at = NOW()";
-
+        $query = "INSERT INTO " . $this->getTableName() . " (username, email, password, role) VALUES (:username, :email, :password, :role)";
+    
         $stmt = $this->conn->prepare($query);
-
+    
         $this->sanitize();
         $hashedPassword = password_hash($this->password, PASSWORD_DEFAULT);
-
+    
         $stmt->bindParam(":username", $this->username, PDO::PARAM_STR);
         $stmt->bindParam(":email", $this->email, PDO::PARAM_STR);
         $stmt->bindParam(":password", $hashedPassword, PDO::PARAM_STR);
         $stmt->bindParam(":role", $this->role, PDO::PARAM_STR);
-
+    
         if ($stmt->execute()) {
             return true;
         } else {
             $errorInfo = $stmt->errorInfo();
-            trigger_error("Error creating user: " . $errorInfo[2], E_USER_WARNING);
+            trigger_error("Error creating admin: " . $errorInfo[2], E_USER_WARNING);
             return false;
         }
     }
+    
 
     function update() {
-        $query = "UPDATE " . $this->table_name . " SET username = :username, email = :email, password = :password, role = :role, modified_at = NOW() WHERE id = :id";
+        $query = "UPDATE " . $this->table_name . " SET username = :username, email = :email, password = :password, role = :role WHERE id = :id";
 
         $stmt = $this->conn->prepare($query);
 
@@ -78,7 +80,7 @@ class Admin {
             return true;
         } else {
             $errorInfo = $stmt->errorInfo();
-            trigger_error("Error updating user: " . $errorInfo[2], E_USER_WARNING);
+            trigger_error("Error updating admin: " . $errorInfo[2], E_USER_WARNING);
             return false;
         }
     }
@@ -96,31 +98,37 @@ class Admin {
             return true;
         } else {
             $errorInfo = $stmt->errorInfo();
-            trigger_error("Error deleting user: " . $errorInfo[2], E_USER_WARNING);
+            trigger_error("Error deleting admin: " . $errorInfo[2], E_USER_WARNING);
             return false;
         }
     }
     
     function authenticate($email, $password) {
         $query = "SELECT * FROM " . $this->table_name . " WHERE email = :email";
-
+    
         $stmt = $this->conn->prepare($query);
-
         $stmt->bindParam(":email", $email, PDO::PARAM_STR);
-
+    
         if ($stmt->execute()) {
-            $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-            if ($user && password_verify($password, $user['password'])) {
-                return $user;
+            $admin = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            if ($admin) {
+                $hashedPasswordInfo = password_get_info($admin['password']);
+                var_dump($hashedPasswordInfo);
+                $hashedPassword = $admin['password'];
+                if (password_verify($password, $hashedPassword)) {
+                    return $admin;
+                }
             }
         } else {
             $errorInfo = $stmt->errorInfo();
-            trigger_error("Error authenticating user: " . $errorInfo[2], E_USER_WARNING);
+            trigger_error("Error authenticating admin: " . $errorInfo[2], E_USER_WARNING);
         }
-
+    
         return false;
     }
+    
+    
 
     private function sanitize(){
         $this->username = htmlspecialchars(strip_tags($this->username));

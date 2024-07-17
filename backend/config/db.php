@@ -1,16 +1,23 @@
 <?php
-$host = "localhost";
-$dbname = "jpo";
-$username = "root";
-$password = "";
+class Database {
+    private $host = "localhost";
+    private $db_name = "jpo";
+    private $username = "root";
+    private $password = "";
+    public $conn;
 
-try {
-    // Créer la connexion PDO
-    $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    public function getConnection() {
+        $this->conn = null;
 
+        try {
+            $this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->db_name, $this->username, $this->password);
+            $this->conn->exec("set names utf8");
+            echo "Database connection established successfully.\n";
+        } catch(PDOException $exception) {
+            echo "Connection error: " . $exception->getMessage();
+        }
 
-} catch(PDOException $e) {
-    echo "Erreur de connexion à la base de données: " . $e->getMessage();
+        return $this->conn;
+    }
 }
 ?>
