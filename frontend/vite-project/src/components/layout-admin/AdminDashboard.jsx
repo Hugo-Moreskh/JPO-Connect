@@ -24,7 +24,8 @@ function AdminDashBoard() {
             >
               Event JPO
             </MenuItem>
-            <MenuItem icon={<AdminPanelSettingsIcon />} className="navlink">
+            <MenuItem icon={<AdminPanelSettingsIcon />} className="navlink"
+            onClick={() => navigate("admin-role")}>
               {" "}
               Rôle Admin{" "}
             </MenuItem>

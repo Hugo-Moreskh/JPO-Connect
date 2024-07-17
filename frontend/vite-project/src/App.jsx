@@ -4,6 +4,7 @@ import { HomePage } from "./pages/HomePage";
 import { RootLayoutAdmin } from "./pages/admin/RootAdmin";
 import AdminPage from "./pages/admin/AdminPage";
 import EventJpo from "./pages/admin/EventJpoPage";
+import AdminRole from "./pages/admin/AdminRole";
 
 export default function App() {
   const router = createBrowserRouter([
@@ -29,6 +30,10 @@ export default function App() {
         {
           path: "event-jpo", 
           element: <EventJpo />,
+        },
+        {
+          path: "admin-role", 
+          element: <AdminRole />,
         },
       ],
     },
