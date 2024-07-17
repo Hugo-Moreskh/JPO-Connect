@@ -12,6 +12,23 @@
   font-weight: 700;
   font-style: normal;
 }
+.title-event{
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  margin-left: 1rem;
+}
+.add-jpo{
+  background-color: #0062ff;
+  color: white;
+  border: none;
+  padding: 1rem;
+  margin-left: 1rem;
+  border-radius: 5%;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
 .logo {
   height: 4em;
 

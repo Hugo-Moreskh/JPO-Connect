@@ -9,17 +9,18 @@ import { useNavigate } from "react-router-dom";
 function AdminDashBoard() {
   const navigate = useNavigate();
   return (
-    <div style={{ display: "flex", height: "70vh" }}>
+  
       <Sidebar className="app">
         <Menu className="menu-container">
           <div className="menu-top">
-            <MenuItem icon={<GridViewRoundedIcon />} className="menu1">
+            <MenuItem icon={<GridViewRoundedIcon />} className="navlink"
+            onClick={() => navigate("/admin")}>
               <h3 className="title">DashBoard</h3>
             </MenuItem>
             <MenuItem
               icon={<EventIcon />}
               className="navlink"
-              onClick={() => navigate("/event-jpo")}
+              onClick={() => navigate("event-jpo")}
             >
               Event JPO
             </MenuItem>
@@ -40,7 +41,7 @@ function AdminDashBoard() {
           </div>
         </Menu>
       </Sidebar>
-    </div>
+  
   );
 }
 

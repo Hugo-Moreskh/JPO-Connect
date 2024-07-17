@@ -7,10 +7,11 @@ export const RootLayoutAdmin = () => {
   return (
   <div>
   <Header />
-  <main>
+  <main style={{ display: "flex", height: "70vh" }}>
     <AdminDashBoard />
+    <Outlet/>
   </main>
-  <Outlet/>
+  
 </div>
   )
 };

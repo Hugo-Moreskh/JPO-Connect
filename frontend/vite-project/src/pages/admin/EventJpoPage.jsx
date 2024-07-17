@@ -1,10 +1,13 @@
-import "../App.css";
+import "../../App.css";
+import ModalEventJpo from "../../components/layout-admin/ModalAddEvent";
 
 function EventJpo() {
+
   return (
     <div>
-      <h1>Event JPO</h1>
-      <p>Contenu de la page Event JPO</p>
+      <h2 className= "title-event">Creer un Event Jpo</h2>
+      <ModalEventJpo/>
+      
     </div>
   );
 }

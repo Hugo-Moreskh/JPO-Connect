@@ -3,6 +3,7 @@ import { RootLayout } from "./pages/Root";
 import { HomePage } from "./pages/HomePage";
 import { RootLayoutAdmin } from "./pages/admin/RootAdmin";
 import AdminPage from "./pages/admin/AdminPage";
+import EventJpo from "./pages/admin/EventJpoPage";
 
 export default function App() {
   const router = createBrowserRouter([
@@ -24,6 +25,10 @@ export default function App() {
         {
           path: "",
           element: <AdminPage />,
+        },
+        {
+          path: "event-jpo", 
+          element: <EventJpo />,
         },
       ],
     },
