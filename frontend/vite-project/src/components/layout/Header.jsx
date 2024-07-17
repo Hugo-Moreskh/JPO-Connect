@@ -1,3 +1,4 @@
+// src/components/layout/Header.jsx
 import {
   SignedIn,
   SignedOut,
@@ -6,6 +7,7 @@ import {
   useUser,
 } from "@clerk/clerk-react";
 import { useEffect } from "react";
+import "./Header.css"; // Assurez-vous d'importer votre fichier CSS pour le style
 
 export const Header = () => {
   const { isSignedIn, user } = useUser();
@@ -13,21 +15,30 @@ export const Header = () => {
   useEffect(() => {
     console.log(user);
   }, [isSignedIn, user]);
-  // user email = user.primaryEmailAddress.emailAddress
-  //role: Directeur : tous les droits (ajouter des droits, supprimer des droits, modifier les droits, modifier les événements, supprimer les événements, modifier les utilisateurs)
-  //role: Responsable : tous les droits sauf ajouter des droits (ajouter des droits, supprimer des droits, modifier les droits, modifier les événements, supprimer les événements, modifier les utilisateurs)
-  //role: Salarié : modifier les événements
+
   return (
-    <header>
-      <SignedOut>
-        <SignInButton />
-      </SignedOut>
-      <SignedIn>
-        <UserButton />
-        {isSignedIn && (
-          <p>Signed in as: {user.primaryEmailAddress.emailAddress}</p>
-        )}
-      </SignedIn>
+    <header className="header">
+      <div className="header-left">
+        <img src="../../src/assets/logo-laplateforme-header.png" alt="Logo" className="logo" />
+        <nav className="nav-links">
+          <a  className="title-event" href="/link1"> Accueil</a>
+          <a className="title-event" href="/link2">JPO</a>
+        </nav>
+      </div>
+      
+      <div className="header-right">
+      <div className="searchBar">
+    
+<img  src="../../src/assets/icons8-search-30.png" alt="searchIcon" />
+        <input type="text"  className="search-bar" />
+      </div>
+        <SignedOut>
+          <SignInButton />
+        </SignedOut>
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
+      </div>
     </header>
   );
 };

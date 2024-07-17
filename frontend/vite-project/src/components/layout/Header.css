@@ -1,0 +1,52 @@
+/* Header.css */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+height: 4rem;
+  background-color: white
+}
+
+.header-left, .header-right {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 40px;
+  margin-right: 8rem;
+}
+
+.nav-links a {
+  margin-right: 5rem;
+  text-decoration: none;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+
+}
+
+.nav-links a:hover {
+  text-decoration: underline;
+}
+
+.search-bar {
+  padding: 8px;
+  margin-right: 6rem;
+  border: 2px solid  #0062ff;
+  border-radius: 10px;
+}
+
+.searchBar{
+  display: flex;
+  align-items: center;
+}
+.header-right {
+  margin-left: auto;
+}
+.title-event{
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  font-size: large;
+}
