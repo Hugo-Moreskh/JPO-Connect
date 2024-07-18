@@ -68,8 +68,9 @@ function handleAuthenticateAdmin($adminController){
     if (!empty($data->email) && !empty($data->password)) {
         $success = $adminController->authenticateAdmin($data->email, $data->password);
         if ($success) {
+            $jwt = $adminController->authenticateAdmin($data->email, $data->password);
             http_response_code(200);
-            echo "Admin authenticated successfully";
+            echo json_encode(array("token" => $jwt));
         } else {
             http_response_code(401);
             echo "Invalid credentials";

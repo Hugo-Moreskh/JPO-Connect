@@ -33,7 +33,7 @@ class Admin {
         $query = "SELECT * FROM " . $this->table_name . " WHERE email = :email";
     
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(":email", $email, PDO::PARAM_STR);
+        $stmt->bindParam(":email", $email);
         $stmt->execute();
     
         return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -45,12 +45,11 @@ class Admin {
         $stmt = $this->conn->prepare($query);
     
         $this->sanitize();
-        $hashedPassword = password_hash($this->password, PASSWORD_DEFAULT);
     
-        $stmt->bindParam(":username", $this->username, PDO::PARAM_STR);
-        $stmt->bindParam(":email", $this->email, PDO::PARAM_STR);
-        $stmt->bindParam(":password", $hashedPassword, PDO::PARAM_STR);
-        $stmt->bindParam(":role", $this->role, PDO::PARAM_STR);
+        $stmt->bindParam(":username", $this->username);
+        $stmt->bindParam(":email", $this->email);
+        $stmt->bindParam(":password", $this->password);
+        $stmt->bindParam(":role", $this->role);
     
         if ($stmt->execute()) {
             return true;
@@ -68,13 +67,12 @@ class Admin {
         $stmt = $this->conn->prepare($query);
 
         $this->sanitize();
-        $hashedPassword = password_hash($this->password, PASSWORD_DEFAULT);
 
-        $stmt->bindParam(":id", $this->id, PDO::PARAM_INT);
-        $stmt->bindParam(":username", $this->username, PDO::PARAM_STR);
-        $stmt->bindParam(":email", $this->email, PDO::PARAM_STR);
-        $stmt->bindParam(":password", $hashedPassword, PDO::PARAM_STR);
-        $stmt->bindParam(":role", $this->role, PDO::PARAM_STR);
+        $stmt->bindParam(":id", $this->id);
+        $stmt->bindParam(":username", $this->username);
+        $stmt->bindParam(":email", $this->email);
+        $stmt->bindParam(":password", $this->password);
+        $stmt->bindParam(":role", $this->role);
 
         if ($stmt->execute()) {
             return true;
@@ -92,7 +90,7 @@ class Admin {
 
         $this->id = htmlspecialchars(strip_tags($this->id));
 
-        $stmt->bindParam(":id", $this->id, PDO::PARAM_INT);
+        $stmt->bindParam(":id", $this->id);
 
         if ($stmt->execute()) {
             return true;
@@ -103,18 +101,17 @@ class Admin {
         }
     }
     
+    
+    
     function authenticate($email, $password) {
         $query = "SELECT * FROM " . $this->table_name . " WHERE email = :email";
     
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(":email", $email, PDO::PARAM_STR);
+        $stmt->bindParam(":email", $email,);
     
         if ($stmt->execute()) {
             $admin = $stmt->fetch(PDO::FETCH_ASSOC);
-            
             if ($admin) {
-                $hashedPasswordInfo = password_get_info($admin['password']);
-                var_dump($hashedPasswordInfo);
                 $hashedPassword = $admin['password'];
                 if (password_verify($password, $hashedPassword)) {
                     return $admin;
@@ -125,14 +122,20 @@ class Admin {
             trigger_error("Error authenticating admin: " . $errorInfo[2], E_USER_WARNING);
         }
     
-        return false;
+        return false; // Return false if authentication fails
     }
+    
     
     
 
-    private function sanitize(){
+    private function sanitize() {
         $this->username = htmlspecialchars(strip_tags($this->username));
         $this->email = htmlspecialchars(strip_tags($this->email));
         $this->password = htmlspecialchars(strip_tags($this->password));
+        $this->password = password_hash($this->password, PASSWORD_DEFAULT);
+        var_dump($this->password);
     }
+    
 }
+// $2y$10$eQIjonmSk6zjrUP1zMqyZOKTm5eZ8rb6rdHPd9Uq3.fBSQHsRtszy
+// $2y$10$eQIjonmSk6zjrUP1zMqyZOKTm5eZ8rb6rdHPd9Uq3.f...

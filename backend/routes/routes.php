@@ -12,7 +12,6 @@ function handleRequest($route, $adminController) {
             handleAdminRoutes($adminController);
             break;
         case '/login':
-            echo "login";
             handleAuthenticateAdmin($adminController);
             break;
         default:

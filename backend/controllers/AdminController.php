@@ -1,6 +1,8 @@
 <?php
 require_once '../models/Admin.php';
+require_once '../../vendor/autoload.php';
 use Firebase\JWT\JWT;
+
 
 class AdminController {
     private $database;
@@ -81,6 +83,7 @@ class AdminController {
     
         if ($admin) {
             $jwt = $this->generateJWT($admin['id'], $admin['role']);
+            
             return $jwt;
         }
     
